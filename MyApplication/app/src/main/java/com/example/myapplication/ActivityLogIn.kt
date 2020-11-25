@@ -3,87 +3,70 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_log_in.*
+import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class ActivityLogIn : AppCompatActivity() {
 
-    lateinit var auth:FirebaseAuth
-
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log_in)
 
-         auth = FirebaseAuth.getInstance()
-
+        auth = FirebaseAuth.getInstance()
 
         btnConfirmLogin.setOnClickListener {
-
-
-             fun login()
-            {
-                btnConfirmLogin.setOnClickListener {
-
-                    if(TextUtils.isEmpty(editTextTextEmailAddress3.text.toString()))
-                    {
-                        editTextTextEmailAddress3.setError("Enter email")
-                        return@setOnClickListener
-                    }
-
-                    else if(TextUtils.isEmpty(editTextTextPassword2.text.toString()))
-                    {
-                        editTextTextPassword2.setError("Enter the password")
-                        return@setOnClickListener
-                    }
-
-                    auth.signInWithEmailAndPassword(editTextTextEmailAddress3.text.toString(),editTextTextPassword2.text.toString())
-                        .addOnCompleteListener{
-                            if(it.isSuccessful){
-                                val intent = Intent(this, ActivityConfirmedLogin::class.java)
-                                startActivity(intent)
-                            }else
-                            {
-                                Toast.makeText(applicationContext,"you are an invaild user", Toast.LENGTH_LONG)
-
-                            }
-                        }
-
-                }
-            }
-
+            /*val intent = Intent(this, ActivityConfirmedLogin::class.java)
+            startActivity(intent)*/
+            doLogin()
+        }
     }
-   /* private fun login()
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        updateUI(currentUser)
+    }
+
+    private fun doLogin()
     {
-        btnConfirmLogin.setOnClickListener {
 
-        if(TextUtils.isEmpty(editTextTextEmailAddress3.text.toString()))
-        {
-            editTextTextEmailAddress3.setError("Enter email")
-            return@setOnClickListener
-        }
 
-            else if(TextUtils.isEmpty(editTextTextPassword2.text.toString()))
-        {
-            editTextTextPassword2.setError("Enter the password")
-            return@setOnClickListener
-        }
+        Log.e("Time",loginEmail.text.trim().toString())
+        Log.e("Time",Loginpassword.text.trim().toString())
 
-            auth.signInWithEmailAndPassword(editTextTextEmailAddress3.text.toString(),editTextTextPassword2.text.toString())
-                .addOnCompleteListener{
-                    if(it.isSuccessful){
-                        val intent = Intent(this, ActivityConfirmedLogin::class.java)
-                        startActivity(intent)
-                    }else
-                    {
-                        Toast.makeText(applicationContext,"you are an invaild user", Toast.LENGTH_LONG)
 
-                    }
+        auth.signInWithEmailAndPassword(loginEmail.text.trim().toString(),Loginpassword.text.trim().toString())
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+
+                    val user = auth.currentUser
+                    updateUI(user)
+                } else {
+
+                    updateUI(null)
+                    // ...
                 }
 
+                // ...
+            }
+    }
+
+  private  fun  updateUI(currentUser: FirebaseUser?)
+    {
+        if(currentUser!=null)
+        {
+        startActivity(Intent(this,ActivityConfirmedLogin::class.java))
+            finish();
         }
-    }*/
+        else{
+            Toast.makeText(baseContext, "Login failed.",
+                Toast.LENGTH_SHORT).show()
+        }
     }
 }
