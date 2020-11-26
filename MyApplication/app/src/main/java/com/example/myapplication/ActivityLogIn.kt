@@ -20,25 +20,16 @@ class ActivityLogIn : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         btnConfirmLogin.setOnClickListener {
-            /*val intent = Intent(this, ActivityConfirmedLogin::class.java)
-            startActivity(intent)*/
+
             doLogin()
         }
     }
 
-    public override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        updateUI(currentUser)
-    }
+
 
     private fun doLogin()
     {
 
-
-        Log.e("Time",loginEmail.text.trim().toString())
-        Log.e("Time",Loginpassword.text.trim().toString())
 
 
         auth.signInWithEmailAndPassword(loginEmail.text.trim().toString(),Loginpassword.text.trim().toString())

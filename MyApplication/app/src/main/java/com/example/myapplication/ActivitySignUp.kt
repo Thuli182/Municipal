@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
@@ -14,45 +15,50 @@ class ActivitySignUp : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
+    private lateinit var refUsers: DatabaseReference
+    private  var firebaseUserID: String =""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
         auth = FirebaseAuth.getInstance()
 
-
-
-        btnConfirmSign.setOnClickListener {
-            /*val intent = Intent(this, ConfirmSignIn::class.java)
-            startActivity(intent)*/
-
-            if (editTextTextEmailAddress.text.trim().toString().isNotEmpty()
-                && editTextTextPassword.text.trim().toString().isNotEmpty()
-                &&personName.text.trim().toString().isNotEmpty()
-                &&personSurname.text.trim().toString().isNotEmpty()
-                &&editTextIdnumber.text.trim().isNotEmpty())
-
-            {
-
-                Toast.makeText(this, "Input provided",Toast.LENGTH_LONG).show()
-                signUpuser()
-
-            }
-            else
-            {
-                Toast.makeText(this, "Input is Reuired",Toast.LENGTH_LONG).show()
-            }
-        }
-
+        signUpuser()
     }
 
     private fun signUpuser()
     {
+        btnConfirmSign.setOnClickListener {
+            /*val intent = Intent(this, ConfirmSignIn::class.java)
+            startActivity(intent)*/
+            if(TextUtils.isEmpty(personName.text.toString())) {
+                personName.setError("Please enter first name ")
+                return@setOnClickListener
+            } else if(TextUtils.isEmpty(personSurname.text.toString())) {
+                personSurname.setError("Please enter last Surname")
+                return@setOnClickListener
+            }else if(TextUtils.isEmpty(editTextIdnumber.text.toString())) {
+                editTextIdnumber.setError("Please enter user Id number ")
+                return@setOnClickListener
+            }else if(TextUtils.isEmpty(editTextTextEmailAddress.text.toString())) {
+                editTextTextEmailAddress.setError("Please enter Email Address ")
+                return@setOnClickListener
+            }else if(TextUtils.isEmpty(editTextTextPassword.text.toString())) {
+                editTextTextPassword.setError("Please enter password ")
+                return@setOnClickListener
 
+        }
         auth.createUserWithEmailAndPassword(editTextTextEmailAddress.text.trim().toString(), editTextTextPassword.text.trim().toString())
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
+
+                    firebaseUserID= auth.currentUser!!.uid
+                    refUsers= FirebaseDatabase.getInstance().reference.child("UserDatails").child(firebaseUserID)
+                   UserData(firebaseUserID,personName.text.toString(),personSurname.text.toString(),editTextIdnumber.text.toString(),editTextTextEmailAddress.text.toString(),editTextTextPassword.text.toString())
+
+
                     startActivity(Intent(this,ConfirmSignIn::class.java))
                     finish();
                 } else {
@@ -69,4 +75,5 @@ class ActivitySignUp : AppCompatActivity() {
     }
 
 
+    }
 }
