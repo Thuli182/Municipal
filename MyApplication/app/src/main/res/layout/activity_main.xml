@@ -45,7 +45,7 @@
         app:srcCompat="@drawable/emalahleni_local_municipality_website__logo" />
 
     <Button
-        android:id="@+id/btnLogIn"
+        android:id="@+id/btnGoToLogInScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Log In"
