@@ -40,7 +40,7 @@ class ActivitySignUp : AppCompatActivity() {
             }
             else
             {
-                Toast.makeText(this, "Input is Reuired",Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Input is Required",Toast.LENGTH_LONG).show()
             }
         }
 
