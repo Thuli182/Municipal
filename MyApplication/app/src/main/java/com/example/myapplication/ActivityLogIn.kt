@@ -7,12 +7,18 @@ import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_log_in.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class ActivityLogIn : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+
+    private  var rootRef: DatabaseReference = FirebaseDatabase.getInstance().reference
+    private val demoRef: DatabaseReference = rootRef.child("UserDatails")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log_in)
@@ -20,26 +26,16 @@ class ActivityLogIn : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         btnConfirmLogin.setOnClickListener {
-            /*val intent = Intent(this, ActivityConfirmedLogin::class.java)
-            startActivity(intent)*/
+
             doLogin()
+
         }
     }
 
-    public override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        updateUI(currentUser)
-    }
+
 
     private fun doLogin()
     {
-
-
-        Log.e("Time",loginEmail.text.trim().toString())
-        Log.e("Time",Loginpassword.text.trim().toString())
-
 
         auth.signInWithEmailAndPassword(loginEmail.text.trim().toString(),Loginpassword.text.trim().toString())
             .addOnCompleteListener(this) { task ->
@@ -57,11 +53,11 @@ class ActivityLogIn : AppCompatActivity() {
             }
     }
 
-  private  fun  updateUI(currentUser: FirebaseUser?)
+    private  fun  updateUI(currentUser: FirebaseUser?)
     {
         if(currentUser!=null)
         {
-        startActivity(Intent(this,ActivityConfirmedLogin::class.java))
+            startActivity(Intent(this,ActivityConfirmedLogin::class.java))
             finish();
         }
         else{
