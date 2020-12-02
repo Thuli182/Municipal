@@ -72,6 +72,12 @@ class ActivityConfirmedLogin : AppCompatActivity() {
                 nameandsurname.setText(name1)
                 textViewID.setText(Idnumber1)
                 textDate.setText(currentDate)
+                electricitytextView.setText(electricity1)
+                watertextView.setText(water1)
+                RefustextView.setText(Refus1)
+                OpenBalancetextView.setText(OpenBalance1)
+                PaymentstextView.setText(OpenBalance1)
+
             }
         }
         database.addValueEventListener(getdata)
