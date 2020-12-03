@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
@@ -24,19 +25,31 @@ class ActivityLogIn : AppCompatActivity() {
         setContentView(R.layout.activity_log_in)
 
         auth = FirebaseAuth.getInstance()
-
-        btnConfirmLogin.setOnClickListener {
+        doLogin()
+        /*btnConfirmLogin.setOnClickListener {
 
             doLogin()
 
-        }
+        }*/
     }
 
 
 
     private fun doLogin()
     {
+        btnConfirmLogin.setOnClickListener {
+            /*val intent = Intent(this, ConfirmSignIn::class.java)
+            startActivity(intent)*/
 
+
+
+            if(TextUtils.isEmpty(loginEmail.text.toString())) {
+                loginEmail.setError("Please enter first Email ")
+                return@setOnClickListener
+            } else if(TextUtils.isEmpty(Loginpassword.text.toString())) {
+                Loginpassword.setError("Please enter Password")
+                return@setOnClickListener
+            }
         auth.signInWithEmailAndPassword(loginEmail.text.trim().toString(),Loginpassword.text.trim().toString())
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -51,6 +64,7 @@ class ActivityLogIn : AppCompatActivity() {
 
                 // ...
             }
+        }
     }
 
     private  fun  updateUI(currentUser: FirebaseUser?)

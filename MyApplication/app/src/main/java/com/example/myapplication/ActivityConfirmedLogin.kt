@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -63,6 +64,12 @@ class ActivityConfirmedLogin : AppCompatActivity() {
                     electricity1.append("$electricity")
                     OpenBalance1.append("$OpenBalance")
                     Refus1.append("$Refus")
+
+
+
+
+
+
 
 
                 }

@@ -53,6 +53,11 @@ class ActivitySignUp : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
+                        val sew = (1..100).shuffled().first()
+                        val wat= sew*2
+                        val elec=wat/2*11
+                        val open=sew*10
+                        val ru=wat-10
 
                         firebaseUserID= auth.currentUser!!.uid
                         refUsers= FirebaseDatabase.getInstance().reference.child("UserDatails").child(firebaseUserID)
@@ -64,6 +69,11 @@ class ActivitySignUp : AppCompatActivity() {
                         userHashMap["Idnumber"]=editTextIdnumber.text.toString()
                         userHashMap["EmailAddress"]=editTextTextEmailAddress.text.toString()
                         userHashMap["Password"]=editTextTextPassword.text.toString()
+                        userHashMap["OpenBalace"]=open.toString()
+                        userHashMap["Refus"]=ru.toString()
+                        userHashMap["electricity"]=elec.toString()
+                        userHashMap["sewer"]= sew.toString()
+
 
                         refUsers.updateChildren(userHashMap).addOnCompleteListener { task -> if(task.isSuccessful)
                         {
