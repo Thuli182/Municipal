@@ -55,9 +55,10 @@ class ActivitySignUp : AppCompatActivity() {
                         // Sign in success, update UI with the signed-in user's information
                         val sew = (1..100).shuffled().first()
                         val wat= sew*2
-                        val elec=wat/2*11
+                        val elec=(1..100).shuffled().first()*1.5
                         val open=sew*10
                         val ru=wat-10
+                        val total=sew+wat+elec+open+ru
 
                         firebaseUserID= auth.currentUser!!.uid
                         refUsers= FirebaseDatabase.getInstance().reference.child("UserDatails").child(firebaseUserID)
@@ -73,6 +74,8 @@ class ActivitySignUp : AppCompatActivity() {
                         userHashMap["Refus"]=ru.toString()
                         userHashMap["electricity"]=elec.toString()
                         userHashMap["sewer"]= sew.toString()
+                        userHashMap["water"]= wat.toString()
+                        userHashMap["Sub-Total"]= total.toString()
 
 
                         refUsers.updateChildren(userHashMap).addOnCompleteListener { task -> if(task.isSuccessful)
