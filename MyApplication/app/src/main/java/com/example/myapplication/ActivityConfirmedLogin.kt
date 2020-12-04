@@ -129,7 +129,7 @@ class ActivityConfirmedLogin : AppCompatActivity() {
             PackageManager.PERMISSION_GRANTED
         )
         btndownload.setOnClickListener {
-            save()
+          //  save()
             createMyPDF()
         }
 
@@ -172,10 +172,6 @@ class ActivityConfirmedLogin : AppCompatActivity() {
         canvas.drawText(watertextView.text.toString(), 250F, 160F,myPaint)
         canvas.drawText(sewertView37.text.toString(), 250F, 180F,myPaint)
         canvas.drawText(RefustextView.text.toString(), 250F, 200F,myPaint)
-
-
-
-
 
 
         myPdfDocument.finishPage(myPage);
