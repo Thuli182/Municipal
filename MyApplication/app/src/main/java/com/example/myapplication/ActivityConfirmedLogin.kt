@@ -61,7 +61,7 @@ class ActivityConfirmedLogin : AppCompatActivity() {
                 var electricity1= StringBuilder()
                 var OpenBalance1= StringBuilder()
                 var Refus1= StringBuilder()
-                var Total1= StringBuilder()
+
 
 
                 for(i in p0.children)
@@ -71,12 +71,12 @@ class ActivityConfirmedLogin : AppCompatActivity() {
                     var name =i.child("Name").getValue()
                     var surname =i.child("Surname").getValue()
 
-                    var water= i.child(" water").getValue()
+                    var water= i.child("water").getValue()
                     var sewer=i.child("sewer").getValue()
                     var electricity= i.child("electricity").getValue()
                     var OpenBalance= i.child("OpenBalace").getValue()
                     var Refus= i.child("Refus").getValue()
-                    var Total=i.child("Sub-Total").getValue()
+
 
                     Idnumber1.append("$Idnumber")
                     name1.append("$name $surname")
@@ -87,19 +87,12 @@ class ActivityConfirmedLogin : AppCompatActivity() {
                     electricity1.append("$electricity")
                     OpenBalance1.append("$OpenBalance")
                     Refus1.append("$Refus")
-                    Total1.append("$Total")
-
-
-
-
-
-
 
 
                 }
                 val sdf = SimpleDateFormat("dd-MM-yyyy")
                 val currentDate = sdf.format(Date())
-                SubTottextView.setText(Total1)
+
                 nameandsurname.setText(name1)
                 textViewID.setText(Idnumber1)
                 textDate.setText(currentDate)

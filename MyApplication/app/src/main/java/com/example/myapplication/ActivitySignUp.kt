@@ -54,7 +54,7 @@ class ActivitySignUp : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         val sew = (1..100).shuffled().first()
-                        val wat= sew*2
+                        val wat= sew*5
                         val elec=(1..100).shuffled().first()*1.5
                         val open=sew*10
                         val ru=wat-10
